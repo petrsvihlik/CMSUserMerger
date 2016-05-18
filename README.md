@@ -10,6 +10,12 @@ It uses [Dapper](https://github.com/StackExchange/dapper-dot-net) - the best obj
  2. Adjust `config.json` - fill in your `ConnectionString`, `OldUserID` and `NewUserID`
  3. Run in VS or from a command line by typing `> dotnet CMSUserMerger.dll`
  
+
+## Future plans / TODOS
+* Copy over stuff from CMS_User and CMS_UserSettings (make it conditional)
+* Make it a little bit more generic (so that it could be used not only for User objects)
  
+:smiling_imp: Contributions are welcome!
+
 ## More about .NET Core
  * https://dotnet.github.io/
