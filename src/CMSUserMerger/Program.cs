@@ -13,6 +13,8 @@ namespace CMSUserMerger
 		{
 			try
 			{
+				const string outputPath = "output.sql";
+
 				// Initialize configuration
 				var builder = new ConfigurationBuilder();
 				builder.AddJsonFile("config.json", true);
@@ -35,14 +37,13 @@ namespace CMSUserMerger
 					sb.AppendLine($"UPDATE {o.FKTABLE_NAME} SET {o.FKCOLUMN_NAME} = {cfg["NewUserID"]} WHERE {o.FKCOLUMN_NAME} = {cfg["OldUserID"]}");
 				}
 
-				File.WriteAllText("output.sql", sb.ToString(), Encoding.UTF8);
+				File.WriteAllText(outputPath, sb.ToString(), Encoding.UTF8);
+				Console.WriteLine($"SQL script successfully generated: {outputPath}");
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
 			}
-
-			Console.ReadLine();
 		}
 	}
 }

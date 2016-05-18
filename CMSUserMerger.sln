@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{207D9461-FD6E-4749-8410-AE3C474E55BB}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CMSUserMerger", "src\CMSUserMerger\CMSUserMerger.xproj", "{A9F1A5E3-5CED-4EBC-AE3A-3C615FCACE20}"
