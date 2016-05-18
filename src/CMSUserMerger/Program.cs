@@ -22,22 +22,26 @@ namespace CMSUserMerger
 				var cfg = builder.Build();
 
 				// Create a SQL connection
-				SqlConnection connection = new SqlConnection(cfg["ConnectionString"]);
-				connection.Open();
-
-				// Get all FK references
-				var result = connection.Query<dynamic>("EXEC sp_fkeys 'CMS_User'");
-
-				StringBuilder sb = new StringBuilder();
-				foreach (dynamic o in result)
+				using (SqlConnection connection = new SqlConnection(cfg["ConnectionString"]))
 				{
-					// Skip user settings
-					if (o.FKTABLE_NAME == "CMS_UserSettings") continue;
+					connection.Open();
 
-					sb.AppendLine($"UPDATE {o.FKTABLE_NAME} SET {o.FKCOLUMN_NAME} = {cfg["NewUserID"]} WHERE {o.FKCOLUMN_NAME} = {cfg["OldUserID"]}");
+					// Get all FK references
+					var result = connection.Query<dynamic>("EXEC sp_fkeys 'CMS_User'");
+
+					StringBuilder sb = new StringBuilder();
+					foreach (dynamic o in result)
+					{
+						// Skip user settings
+						if (o.FKTABLE_NAME == "CMS_UserSettings") continue;
+
+						sb.AppendLine($"UPDATE {o.FKTABLE_NAME} SET {o.FKCOLUMN_NAME} = {cfg["NewUserID"]} WHERE {o.FKCOLUMN_NAME} = {cfg["OldUserID"]}");
+					}
+
+
+					File.WriteAllText(outputPath, sb.ToString(), Encoding.UTF8);
 				}
 
-				File.WriteAllText(outputPath, sb.ToString(), Encoding.UTF8);
 				Console.WriteLine($"SQL script successfully generated: {outputPath}");
 			}
 			catch (Exception ex)
